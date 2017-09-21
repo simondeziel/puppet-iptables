@@ -15,6 +15,7 @@ class firewall::config inherits firewall {
   if $use_snippets {
     file { $snippet_dir:
       ensure  => directory,
+      recurse => true,
       purge   => true,
       owner   => 0,
       group   => 0,
