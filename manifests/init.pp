@@ -52,7 +52,7 @@ class firewall (
     command     => "iptables-save > ${iptables_file}",
     path        => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
     refreshonly => true,
-    require     => File[${iptables_file],
+    require     => File[$iptables_file],
   }
 
   file { $ip6tables_in_file:
