@@ -5,6 +5,7 @@
 # and save working ones in /etc/iptables/rules.v[46]
 #
 class firewall (
+  Boolean $use_snippets                   = $firewall::params::user_snippets,
   Optional[String] $iptables_content      = undef,
   Optional[String] $iptables_source       = undef,
   Stdlib::AbsolutePath $iptables_file     = $firewall::params::iptables_file,
