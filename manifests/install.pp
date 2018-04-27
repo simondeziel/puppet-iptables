@@ -1,5 +1,5 @@
 # @api private
-# This class handles firewall packages. Avoid modifying private classes.
-class firewall::install inherits firewall {
+# This class handles iptables packages. Avoid modifying private classes.
+class iptables::install inherits iptables {
   ensure_packages($package_names)
 }

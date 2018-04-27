@@ -1,6 +1,6 @@
 # @api private
-# This class handles firewall params. Avoid modifying private classes.
-class firewall::params {
+# This class handles iptables params. Avoid modifying private classes.
+class iptables::params {
   $use_snippets              = false
   $iptables_file             = '/etc/iptables/rules.v4'
   $iptables_in_file          = '/etc/iptables/rules.v4.in'

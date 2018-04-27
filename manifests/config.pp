@@ -1,6 +1,6 @@
 # @api private
-# This class handles firewall config. Avoid modifying private classes.
-class firewall::config inherits firewall {
+# This class handles iptables config. Avoid modifying private classes.
+class iptables::config inherits iptables {
   # restrict access to rulesets
   File {
     owner => 0,

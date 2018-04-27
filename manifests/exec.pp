@@ -1,6 +1,6 @@
 # @api private
-# This class handles firewall exec actions. Avoid modifying private classes.
-class firewall::exec inherits firewall {
+# This class handles iptables exec actions. Avoid modifying private classes.
+class iptables::exec inherits iptables {
   # restrict access to rulesets
   File {
     owner => 0,
@@ -26,7 +26,7 @@ class firewall::exec inherits firewall {
       onlyif  => "[ ! -e \"${ip6tables_aggregated_file}\" ] || [ \"${ip6tables_aggregated_file}\" -ot \"${snippet_dir}\" ]",
     }
 
-    # cannot go in firewall::config due to dependency ordering
+    # cannot go in iptables::config due to dependency ordering
     file { $iptables_in_file:
       ensure       => file,
       source       => $iptables_aggregated_file,
