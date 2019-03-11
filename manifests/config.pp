@@ -8,8 +8,13 @@ class iptables::config inherits iptables {
     mode  => $mode,
   }
 
-  file { [$iptables_file,$ip6tables_file]:
+  file { $iptables_file:
     ensure => file,
+    notify => Exec['iptables-restore'],
+  }
+  file { $ip6tables_file:
+    ensure => file,
+    notify => Exec['ip6tables-restore'],
   }
 
   if $use_snippets {
