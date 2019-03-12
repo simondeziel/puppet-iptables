@@ -18,13 +18,13 @@ class iptables::exec {
       command => "/bin/cat ${iptables::snippet_dir}/*.v4 > ${iptables::iptables_aggregated_file}",
       umask   => '0077',
       # only if missing/empty aggregated file or if aggregated file is older than snippet dir
-      onlyif  => "[ ! -s \"${iptables::iptables_aggregated_file}\" ] || [ \"${iptables::iptables_aggregated_file}\" -ot \"${iptables::snippet_dir}\" ]",
+      onlyif  => "[ ! -s '${iptables::iptables_aggregated_file}' ] || [ '${iptables::iptables_aggregated_file}' -ot '${iptables::snippet_dir}' ]",
     }
     exec { 'ip6tables-aggregate':
       command => "/bin/cat ${iptables::snippet_dir}/*.v6 > ${iptables::ip6tables_aggregated_file}",
       umask   => '0077',
       # only if missing/empty aggregated file or if aggregated file is older than snippet dir
-      onlyif  => "[ ! -s \"${iptables::ip6tables_aggregated_file}\" ] || [ \"${iptables::ip6tables_aggregated_file}\" -ot \"${iptables::snippet_dir}\" ]",
+      onlyif  => "[ ! -s '${iptables::ip6tables_aggregated_file}' ] || [ '${iptables::ip6tables_aggregated_file}' -ot '${iptables::snippet_dir}' ]",
     }
 
     # cannot go in iptables::config due to dependency ordering
