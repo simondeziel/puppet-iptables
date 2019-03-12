@@ -3,17 +3,16 @@
 class iptables::config inherits iptables {
   # restrict access to rulesets
   File {
-    owner => 0,
-    group => $group,
-    mode  => $mode,
+    ensure => file,
+    owner  => 0,
+    group  => $group,
+    mode   => $mode,
   }
 
   file { $iptables_file:
-    ensure => file,
     notify => Exec['iptables-restore'],
   }
   file { $ip6tables_file:
-    ensure => file,
     notify => Exec['ip6tables-restore'],
   }
 
@@ -28,14 +27,12 @@ class iptables::config inherits iptables {
     }
   } else {
     file { $iptables_in_file:
-      ensure       => file,
       content      => $iptables_content,
       source       => $iptables_source,
       validate_cmd => "${iptables_restore} --test < %",
       notify       => Exec['iptables-restore'],
     }
     file { $ip6tables_in_file:
-      ensure       => file,
       content      => $ip6tables_content,
       source       => $ip6tables_source,
       validate_cmd => "${ip6tables_restore} --test < %",

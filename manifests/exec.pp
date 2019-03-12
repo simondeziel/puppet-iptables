@@ -3,9 +3,10 @@
 class iptables::exec inherits iptables {
   # restrict access to rulesets
   File {
-    owner => 0,
-    group => $group,
-    mode  => $mode,
+    ensure => file,
+    owner  => 0,
+    group  => $group,
+    mode   => $mode,
   }
 
   if $use_snippets {
@@ -28,14 +29,12 @@ class iptables::exec inherits iptables {
 
     # cannot go in iptables::config due to dependency ordering
     file { $iptables_in_file:
-      ensure       => file,
       source       => $iptables_aggregated_file,
       validate_cmd => "${iptables_restore} --test < %",
       require      => Exec['iptables-aggregate'],
       notify       => Exec['iptables-restore'],
     }
     file { $ip6tables_in_file:
-      ensure       => file,
       source       => $ip6tables_aggregated_file,
       validate_cmd => "${ip6tables_restore} --test < %",
       require      => Exec['ip6tables-aggregate'],
