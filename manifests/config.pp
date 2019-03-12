@@ -1,23 +1,23 @@
 # @api private
 # This class handles iptables config. Avoid modifying private classes.
-class iptables::config inherits iptables {
+class iptables::config {
   # restrict access to rulesets
   File {
     ensure => file,
     owner  => 0,
-    group  => $group,
-    mode   => $mode,
+    group  => $iptables::group,
+    mode   => $iptables::mode,
   }
 
-  file { $iptables_file:
+  file { $iptables::iptables_file:
     notify => Exec['iptables-restore'],
   }
-  file { $ip6tables_file:
+  file { $iptables::ip6tables_file:
     notify => Exec['ip6tables-restore'],
   }
 
-  if $use_snippets {
-    file { $snippet_dir:
+  if $iptables::use_snippets {
+    file { $iptables::snippet_dir:
       ensure  => directory,
       recurse => true,
       purge   => true,
@@ -26,24 +26,24 @@ class iptables::config inherits iptables {
       mode    => '0755',
     }
   } else {
-    file { $iptables_in_file:
-      content      => $iptables_content,
-      source       => $iptables_source,
-      validate_cmd => "${iptables_restore} --test < %",
+    file { $iptables::iptables_in_file:
+      content      => $iptables::iptables_content,
+      source       => $iptables::iptables_source,
+      validate_cmd => "${iptables::iptables_restore} --test < %",
       notify       => Exec['iptables-restore'],
     }
-    file { $ip6tables_in_file:
-      content      => $ip6tables_content,
-      source       => $ip6tables_source,
-      validate_cmd => "${ip6tables_restore} --test < %",
+    file { $iptables::ip6tables_in_file:
+      content      => $iptables::ip6tables_content,
+      source       => $iptables::ip6tables_source,
+      validate_cmd => "${iptables::ip6tables_restore} --test < %",
       notify       => Exec['ip6tables-restore'],
     }
-    file { [$iptables_aggregated_file,$ip6tables_aggregated_file]:
+    file { [$iptables::iptables_aggregated_file,$iptables::ip6tables_aggregated_file]:
       ensure => absent,
     }
-    file { $snippet_dir:
-      ensure  => absent,
-      force   => true,
+    file { $iptables::snippet_dir:
+      ensure => absent,
+      force  => true,
     }
   }
 }
