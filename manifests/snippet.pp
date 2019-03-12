@@ -17,9 +17,10 @@ define iptables::snippet (
 
   # restrict access to rulesets
   File {
-    owner => 0,
-    group => $group,
-    mode  => $mode,
+    ensure => file,
+    owner  => 0,
+    group  => $group,
+    mode   => $mode,
   }
 
   file { "${iptables::snippet_dir}/${name}.v4":
