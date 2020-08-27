@@ -17,10 +17,10 @@ class iptables (
   String           $mode              = '0640',
   Stdlib::UnixPath $snippet_dir       = "${rules_dir}/snippet",
   Array[String]    $package_names     = ['iptables', 'iptables-persistent'],
-  Stdlib::UnixPath $iptables_save     = '/sbin/iptables-save',
-  Stdlib::UnixPath $ip6tables_save    = '/sbin/ip6tables-save',
-  Stdlib::UnixPath $iptables_restore  = '/sbin/iptables-restore',
-  Stdlib::UnixPath $ip6tables_restore = '/sbin/ip6tables-restore'
+  String           $iptables_save     = 'iptables-save',
+  String           $ip6tables_save    = 'ip6tables-save',
+  String           $iptables_restore  = 'iptables-restore',
+  String           $ip6tables_restore = 'ip6tables-restore',
 ) {
 
   # derive some variables based on provided params
