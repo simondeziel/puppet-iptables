@@ -28,7 +28,7 @@ To install iptables and ip6tables rules from EPP templates:
 
 Where your `bar.ip46tables.epp` template could look something like this:
 
-```
+```puppet
 <%- | Enum['v4','v6'] $ipver |
 # ip46tables
   $icmp        = $ipver ? {
