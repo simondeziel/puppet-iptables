@@ -5,6 +5,16 @@ Manages iptables rules (iptables/ip6tables) and make them persisent (load on boo
 ## Requirements
 * A distro with iptables-persistent or equivalent package.
 
+This module invokes tools without specifying their full paths. This is
+intentional and assumes your `manifests/site.pp` has something similar to:
+
+```puppet
+Exec {
+  path      => ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
+  logoutput => 'on_failure',
+}
+```
+
 ## Usage
 
 To install iptables and ip6tables rules from EPP templates:
